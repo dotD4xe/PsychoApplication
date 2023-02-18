@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="55sp"
         android:text="Psycho"
+        android:textColor="@color/black"
         android:textStyle="bold|normal"
         android:layout_gravity="center"/>
 

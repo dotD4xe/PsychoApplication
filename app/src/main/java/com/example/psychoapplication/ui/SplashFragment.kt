@@ -37,8 +37,13 @@ class SplashFragment : Fragment() {
                 val action = SplashFragmentDirections.actionSplashFragmentToRegistrationFragment()
                 this.findNavController().navigate(action)
             }
-        }, 3000)
+        }, 1500)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

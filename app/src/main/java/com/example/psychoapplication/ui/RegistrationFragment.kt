@@ -1,24 +1,16 @@
 package com.example.psychoapplication.ui
 
 import android.os.Bundle
-import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.psychoapplication.databinding.FragmentRegistrationBinding
-import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
-import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import me.ibrahimsn.lib.PhoneNumberKit
-import java.util.concurrent.TimeUnit
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class RegistrationFragment : Fragment() {
@@ -26,9 +18,8 @@ class RegistrationFragment : Fragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var number: String
-
-    private lateinit var mAuth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,67 +32,84 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        val phoneNumberKit = PhoneNumberKit.Builder(requireContext())
-            .setIconEnabled(true)
-            .build()
-
-        phoneNumberKit.attachToInput(binding.textField, "ru")
-
-        phoneNumberKit.setupCountryPicker(
-            activity = requireContext() as AppCompatActivity,
-            searchEnabled = true
-        )
-
-        binding.continueBtn.setOnClickListener {
-            val parsedNumber = phoneNumberKit.parsePhoneNumber(
-                number = binding.editText.text.toString(),
-                defaultRegion = null
-            )
-            parsedNumber?.nationalNumber
-            number = "+"+ parsedNumber?.countryCode.toString() + parsedNumber?.nationalNumber.toString()
-            if (number.count() != 12) {
-                binding.editText.error = "This field can not be blank"
-            } else {
-                authUser()
+        auth= FirebaseAuth.getInstance()
+        db= FirebaseFirestore.getInstance()
+        binding.confirmButton.setOnClickListener {
+            binding.editTextEmail.error = null
+            binding.editTextPassword.error = null
+            binding.editTextName.error = null
+            binding.errorText.text = ""
+            if(checkName() && checkEmail() && checkPassword()) {
+                val email= binding.editTextEmail.editText?.text.toString()
+                val password= binding.editTextPassword.editText?.text.toString()
+                val name= binding.editTextName.editText?.text.toString()
+                val user= hashMapOf(
+                    "Name" to name,
+                    "email" to email
+                )
+                val users = db.collection("USERS")
+                val query = users.whereEqualTo("email",email).get()
+                    .addOnSuccessListener { tasks->
+                        if(tasks.isEmpty && isAttachedToActivity()) {
+                            auth.createUserWithEmailAndPassword(email,password)
+                                .addOnCompleteListener(requireActivity()){ task->
+                                    if(task.isSuccessful) {
+                                        users.document(email).set(user)
+                                        view.post {
+                                            val action = RegistrationFragmentDirections.actionRegistrationFragmentToTestFragment(email)
+                                            this.findNavController().navigate(action)
+                                        }
+                                    }
+                                    else {
+                                        binding.errorText.text = "Authentication Failed"
+                                    }
+                                }
+                        } else {
+                            binding.errorText.text = "User Already Registered"
+                        }
+                    }
             }
         }
     }
 
-    private fun authUser() {
-        mAuth = FirebaseAuth.getInstance()
-        val options = PhoneAuthOptions.newBuilder(Firebase.auth)
-            .setPhoneNumber(number)
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(this.requireActivity())
-            .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private fun checkEmail(): Boolean {
+        return if (
+            binding.editTextEmail.editText?.text.toString().isNotEmpty() &&
+            Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmail.editText?.text.toString()).matches()
+        ) true
+        else {
+            binding.editTextEmail.error = "Email is not correct"
+            false
+        }
+    }
 
-            override fun onCodeSent(
-                verificationId: String,
-                forceResendingToken: PhoneAuthProvider.ForceResendingToken
-            ) {
-                val action = RegistrationFragmentDirections.actionRegistrationFragmentToOTPFragment(
-                    itemId = verificationId,
-                    number = number)
-                this@RegistrationFragment.findNavController().navigate(action)
-            }
+    private fun checkName(): Boolean {
+        return if (binding.editTextName.editText?.text.toString().trim{it<=' '}.isNotEmpty()) true
+        else {
+            binding.editTextName.error = "Enter a name"
+            false
+        }
+    }
 
-            override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
-                mAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(requireContext(), "Welcome", Toast.LENGTH_LONG).show()
-                        val action = RegistrationFragmentDirections.actionRegistrationFragmentToTestFragment()
-                        this@RegistrationFragment.findNavController().navigate(action)
-                    } else Log.d("awash", task.exception?.message.toString())
-                }
-            }
+    private fun checkPassword():Boolean {
+        return if(
+            binding.editTextPassword.editText?.text.toString().trim{it<=' '}.isNotEmpty() &&
+            binding.editTextPassword.editText?.text.toString().count() >= 6
+        )  true
+        else {
+            binding.editTextPassword.error = "Password is not correct. at least 6 characters "
+            false
+        }
+    }
 
-            override fun onVerificationFailed(e: FirebaseException) {
-                Log.d("awash", e.toString())
-            }
-        }).build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
+    fun isAttachedToActivity(): Boolean {
+        return isVisible
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

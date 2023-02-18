@@ -3,43 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:orientation="vertical"
+    android:gravity="center"
     android:padding="30dp"
-    android:gravity="center">
+    tools:context=".ui.LoginFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/registration"
         android:textSize="25sp"
-        android:textColor="@color/black"
         android:textStyle="bold"
-        android:paddingBottom="70dp"
-        android:layout_gravity="center"/>
+        android:textColor="@color/black"
+        android:text="@string/login_to_continue"
+        android:paddingBottom="90dp"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_height="45dp"
-            android:layout_width="match_parent"
-            android:maxLines="1"
-            android:inputType="text"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/email">
+        android:hint="@string/email_login">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:maxLines="1"
             android:inputType="textEmailAddress"
@@ -50,34 +36,30 @@
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password">
+        android:hint="@string/password_login">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:maxLines="1"
+            android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:maxLines="1"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/errorText"
+        android:id="@+id/textRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="user is already reg"
-        android:textSize="16sp"
-        android:textColor="#FF0000"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/i_don_t_have_an_account"/>
 
     <Button
-        android:id="@+id/confirmButton"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:textAllCaps="false"
         android:textSize="20sp"
-        android:text="@string/confirm"/>
-
-
-
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:text="@string/login" />
 
 </LinearLayout>

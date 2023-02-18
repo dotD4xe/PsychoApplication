@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "542273772865",
-    "project_id": "psycho-application-c0345",
-    "storage_bucket": "psycho-application-c0345.appspot.com"
+    "project_number": "145943050804",
+    "project_id": "psychoapplication-8f58a",
+    "storage_bucket": "psychoapplication-8f58a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:542273772865:android:6865f05c81696b200ad5c0",
+        "mobilesdk_app_id": "1:145943050804:android:b348addc563479bba76861",
         "android_client_info": {
           "package_name": "com.example.psychoapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "542273772865-6cljpc46tm0603thcr702t5uhi5m7e7c.apps.googleusercontent.com",
+          "client_id": "145943050804-tih69nvp38g6dkb1udeg9ohll8f703o7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.psychoapplication",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "542273772865-10l0g9i1uaci5eicsmrrdje180fjan2a.apps.googleusercontent.com",
+          "client_id": "145943050804-t5t37qf4dkn481gobenp0aqumb23en8c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAIzq55FcPIc2pnpPU2Rl5F8VF0OSn_aX4"
+          "current_key": "AIzaSyDCXphNdBz39uEJdPyl-QuAV_6zqzkFc4U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "542273772865-10l0g9i1uaci5eicsmrrdje180fjan2a.apps.googleusercontent.com",
+              "client_id": "145943050804-t5t37qf4dkn481gobenp0aqumb23en8c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
