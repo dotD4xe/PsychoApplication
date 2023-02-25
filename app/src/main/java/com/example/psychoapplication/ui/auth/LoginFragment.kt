@@ -1,4 +1,4 @@
-package com.example.psychoapplication.ui
+package com.example.psychoapplication.ui.auth
 
 import android.os.Bundle
 import android.util.Patterns
@@ -25,15 +25,24 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        val mAuth = FirebaseAuth.getInstance()
+        if (mAuth.currentUser != null) {
+            val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
+            this.findNavController().navigate(action)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         auth= FirebaseAuth.getInstance()
         binding.textRegistration.setOnClickListener {
-            view.post {
-                val action = LoginFragmentDirections.actionLoginFragmentToRegistrationFragment()
-                this.findNavController().navigate(action)
-            }
+            binding.editTextEmail.error = null
+            binding.editTextPassword.error = null
+            val action = LoginFragmentDirections.actionLoginFragmentToRegistrationFragment()
+            this.findNavController().navigate(action)
         }
 
 
@@ -43,22 +52,15 @@ class LoginFragment : Fragment() {
             if(checkEmail() && checkPassword()){
                 val email= binding.editTextEmail.editText?.text.toString()
                 val password= binding.editTextPassword.editText?.text.toString()
-                if (isAttachedToActivity()) {
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(requireActivity()) { task ->
-                            if (task.isSuccessful) {
-                                view.post {
-                                    val action =
-                                        LoginFragmentDirections.actionLoginFragmentToTestFragment(
-                                            email
-                                        )
-                                    this.findNavController().navigate(action)
-                                }
-                            } else {
-                                binding.editTextEmail.error = "invalid username or password"
-                            }
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
+                            this.findNavController().navigate(action)
+                        } else {
+                            binding.editTextEmail.error = "invalid username or password"
                         }
-                }
+                    }
             }
         }
     }
@@ -85,9 +87,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-    fun isAttachedToActivity(): Boolean {
-        return isVisible
-    }
 
     override fun onDestroy() {
         super.onDestroy()

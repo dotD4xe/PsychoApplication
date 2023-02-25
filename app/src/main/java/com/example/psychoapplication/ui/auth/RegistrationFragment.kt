@@ -1,11 +1,10 @@
-package com.example.psychoapplication.ui
+package com.example.psychoapplication.ui.auth
 
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.psychoapplication.databinding.FragmentRegistrationBinding
@@ -48,17 +47,15 @@ class RegistrationFragment : Fragment() {
                     "email" to email
                 )
                 val users = db.collection("USERS")
-                val query = users.whereEqualTo("email",email).get()
+                users.whereEqualTo("email",email).get()
                     .addOnSuccessListener { tasks->
-                        if(tasks.isEmpty && isAttachedToActivity()) {
+                        if(tasks.isEmpty) {
                             auth.createUserWithEmailAndPassword(email,password)
                                 .addOnCompleteListener(requireActivity()){ task->
                                     if(task.isSuccessful) {
                                         users.document(email).set(user)
-                                        view.post {
-                                            val action = RegistrationFragmentDirections.actionRegistrationFragmentToTestFragment(email)
-                                            this.findNavController().navigate(action)
-                                        }
+                                        val action = RegistrationFragmentDirections.actionRegisterFragmentToHomeNavigation()
+                                        this.findNavController().navigate(action)
                                     }
                                     else {
                                         binding.errorText.text = "Authentication Failed"
@@ -101,11 +98,6 @@ class RegistrationFragment : Fragment() {
             false
         }
     }
-
-    fun isAttachedToActivity(): Boolean {
-        return isVisible
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()
