@@ -1,4 +1,4 @@
-package com.example.psychoapplication.ui
+package com.example.psychoapplication.ui.home
 
 import android.content.Context
 import android.os.Bundle
@@ -8,15 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.psychoapplication.R
 import com.example.psychoapplication.databinding.FragmentTestBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TestFragment : Fragment() {
-
-    private val navigationArgs: TestFragmentArgs by navArgs()
 
     private var _binding: FragmentTestBinding? = null
     private val binding get() = _binding!!
@@ -44,7 +41,7 @@ class TestFragment : Fragment() {
             this.findNavController().navigate(action)
         }
         if(isLogin=="1") {
-            val email = navigationArgs.email
+            val email = "davas123@mail.ru"
             if(email != "1") {
                 setText(email)
                 with(sharedPref.edit()) {
@@ -54,15 +51,20 @@ class TestFragment : Fragment() {
             } else{
                 Log.d("vayash", "немыслемая хуйня")
             }
-        } else setText(isLogin)
+        } else {
+            setText(isLogin)
+            Log.d("ayash", "shared")
+        }
 
     }
 
     private fun setText(email:String?) {
         db= FirebaseFirestore.getInstance()
+        Log.d("ayash", "begin")
         if (email != null) {
             db.collection("USERS").document(email).get()
                 .addOnSuccessListener { tasks->
+                    Log.d("ayash", "hello")
                     binding.helloText.text= activity?.getString(R.string.hello, tasks.get("Name").toString())
                 }
         }
