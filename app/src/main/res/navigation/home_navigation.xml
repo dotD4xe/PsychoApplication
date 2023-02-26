@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_navigation"
-    app:startDestination="@id/testFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/testFragment"
-        android:name="com.example.psychoapplication.ui.home.TestFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.example.psychoapplication.ui.home.HomeFragment"
         android:label="fragment_test"
         tools:layout="@layout/fragment_test">
         <action
-            android:id="@+id/action_testFragment_to_loginFragment"
+            android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/LoginFragment"
-            app:popUpTo="@id/LoginFragment"
+            app:popUpTo="@id/home_navigation"
             app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
