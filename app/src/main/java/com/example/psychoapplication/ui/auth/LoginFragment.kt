@@ -1,21 +1,23 @@
 package com.example.psychoapplication.ui.auth
 
 import android.os.Bundle
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.psychoapplication.databinding.FragmentLoginBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.example.psychoapplication.util.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,65 +27,78 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        val mAuth = FirebaseAuth.getInstance()
-        if (mAuth.currentUser != null) {
-            val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observer()
+        binding.loginBtn.setOnClickListener {
+            if (validation()) {
+                viewModel.login(
+                    email = binding.emailEt.text.toString(),
+                    password = binding.passEt.text.toString()
+                )
+            }
+        }
+
+        binding.registerLabel.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToRegistrationFragment()
             this.findNavController().navigate(action)
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        auth= FirebaseAuth.getInstance()
-        binding.textRegistration.setOnClickListener {
-            binding.editTextEmail.error = null
-            binding.editTextPassword.error = null
-            val action = LoginFragmentDirections.actionLoginFragmentToRegistrationFragment()
-            this.findNavController().navigate(action)
-        }
-
-
-        binding.loginButton.setOnClickListener {
-            binding.editTextEmail.error = null
-            binding.editTextPassword.error = null
-            if(checkEmail() && checkPassword()){
-                val email= binding.editTextEmail.editText?.text.toString()
-                val password= binding.editTextPassword.editText?.text.toString()
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
-                            this.findNavController().navigate(action)
-                        } else {
-                            binding.editTextEmail.error = "invalid username or password"
-                        }
-                    }
+    private fun observer(){
+        viewModel.login.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UiState.Loading -> {
+                    binding.loginBtn.text = ""
+                    binding.loginProgress.show()
+                }
+                is UiState.Failure -> {
+                    binding.loginBtn.text = "Login"
+                    binding.loginProgress.hide()
+                    toast(state.error)
+                }
+                is UiState.Success -> {
+                    binding.loginBtn.text = "Login"
+                    binding.loginProgress.hide()
+                    toast(state.data)
+                    val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
+                    this.findNavController().navigate(action)
+                }
             }
         }
     }
 
-    private fun checkEmail(): Boolean {
-        return if (
-            binding.editTextEmail.editText?.text.toString().trim{it<=' '}.isNotEmpty() &&
-            Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmail.editText?.text.toString()).matches()
-        ) true
-        else {
-            binding.editTextEmail.error = "email is not correct"
-            false
+    private fun validation(): Boolean {
+        var isValid = true
+
+        if (binding.emailEt.text.isNullOrEmpty()){
+            isValid = false
+            toast("enter mail")
+        }else{
+            if (!binding.emailEt.text.toString().isValidEmail()){
+                isValid = false
+                toast("invalid email")
+            }
         }
+        if (binding.passEt.text.isNullOrEmpty()){
+            isValid = false
+            toast("enter password")
+        }else{
+            if (binding.passEt.text.toString().length < 6){
+                isValid = false
+                toast("invalid password")
+            }
+        }
+        return isValid
     }
 
-    private fun checkPassword():Boolean {
-        return if(
-            binding.editTextPassword.editText?.text.toString().trim{it<=' '}.isNotEmpty() &&
-            binding.editTextPassword.editText?.text.toString().count() >= 6
-        )  true
-        else {
-            binding.editTextPassword.error = "Password is not correct"
-            false
+    override fun onStart() {
+        super.onStart()
+        viewModel.getSession { user ->
+            if (user != null){
+                val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
+                this.findNavController().navigate(action)
+            }
         }
     }
 

@@ -1,24 +1,24 @@
 package com.example.psychoapplication.ui.auth
 
 import android.os.Bundle
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.psychoapplication.data.model.User
 import com.example.psychoapplication.databinding.FragmentRegistrationBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.psychoapplication.util.*
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RegistrationFragment : Fragment() {
 
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,73 +31,78 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        auth= FirebaseAuth.getInstance()
-        db= FirebaseFirestore.getInstance()
-        binding.confirmButton.setOnClickListener {
-            binding.editTextEmail.error = null
-            binding.editTextPassword.error = null
-            binding.editTextName.error = null
-            binding.errorText.text = ""
-            if(checkName() && checkEmail() && checkPassword()) {
-                val email= binding.editTextEmail.editText?.text.toString()
-                val password= binding.editTextPassword.editText?.text.toString()
-                val name= binding.editTextName.editText?.text.toString()
-                val user= hashMapOf(
-                    "Name" to name,
-                    "email" to email
+        observer()
+        binding.registerBtn.setOnClickListener {
+            if (validation()){
+                viewModel.register(
+                    email = binding.emailEt.text.toString(),
+                    password = binding.passEt.text.toString(),
+                    user = getUserObj()
                 )
-                val users = db.collection("USERS")
-                users.whereEqualTo("email",email).get()
-                    .addOnSuccessListener { tasks->
-                        if(tasks.isEmpty) {
-                            auth.createUserWithEmailAndPassword(email,password)
-                                .addOnCompleteListener(requireActivity()){ task->
-                                    if(task.isSuccessful) {
-                                        users.document(email).set(user)
-                                        val action = RegistrationFragmentDirections.actionRegisterFragmentToHomeNavigation()
-                                        this.findNavController().navigate(action)
-                                    }
-                                    else {
-                                        binding.errorText.text = "Authentication Failed"
-                                    }
-                                }
-                        } else {
-                            binding.errorText.text = "User Already Registered"
-                        }
-                    }
             }
         }
     }
 
-    private fun checkEmail(): Boolean {
-        return if (
-            binding.editTextEmail.editText?.text.toString().isNotEmpty() &&
-            Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmail.editText?.text.toString()).matches()
-        ) true
-        else {
-            binding.editTextEmail.error = "Email is not correct"
-            false
+    private fun observer() {
+        viewModel.register.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UiState.Loading -> {
+                    binding.registerBtn.text = ""
+                    binding.registerProgress.show()
+                }
+                is UiState.Failure -> {
+                    binding.registerBtn.text = "Register"
+                    binding.registerProgress.hide()
+                    toast(state.error)
+                }
+                is UiState.Success -> {
+                    binding.registerBtn.text = "Register"
+                    binding.registerProgress.hide()
+                    toast(state.data)
+                    val action = RegistrationFragmentDirections.actionRegisterFragmentToHomeNavigation()
+                    this.findNavController().navigate(action)
+                }
+            }
         }
     }
 
-    private fun checkName(): Boolean {
-        return if (binding.editTextName.editText?.text.toString().trim{it<=' '}.isNotEmpty()) true
-        else {
-            binding.editTextName.error = "Enter a name"
-            false
-        }
+    private fun getUserObj(): User {
+        return User(
+            id = "",
+            name = binding.firstNameEt.text.toString(),
+            email = binding.emailEt.text.toString(),
+        )
     }
 
-    private fun checkPassword():Boolean {
-        return if(
-            binding.editTextPassword.editText?.text.toString().trim{it<=' '}.isNotEmpty() &&
-            binding.editTextPassword.editText?.text.toString().count() >= 6
-        )  true
-        else {
-            binding.editTextPassword.error = "Password is not correct. at least 6 characters "
-            false
+    private fun validation(): Boolean {
+        var isValid = true
+
+        if (binding.firstNameEt.text.isNullOrEmpty()){
+            isValid = false
+            toast("enter name")
         }
+
+        if (binding.emailEt.text.isNullOrEmpty()){
+            isValid = false
+            toast("enter email")
+        }else{
+            if (!binding.emailEt.text.toString().isValidEmail()){
+                isValid = false
+                toast("invalid email")
+            }
+        }
+        if (binding.passEt.text.isNullOrEmpty()){
+            isValid = false
+            toast("enter password")
+        }else{
+            if (binding.passEt.text.toString().length < 6){
+                isValid = false
+                toast("invalid password")
+            }
+        }
+        return isValid
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
