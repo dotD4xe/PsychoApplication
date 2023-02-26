@@ -14,9 +14,9 @@ import com.google.gson.Gson
 
 class AuthRepositoryImp(
     val auth: FirebaseAuth,
-    val database: FirebaseFirestore,
-    val appPreferences: SharedPreferences,
-    val gson: Gson
+    private val database: FirebaseFirestore,
+    private val appPreferences: SharedPreferences,
+    private val gson: Gson
 ) : AuthRepository {
 
     override fun registerUser(
@@ -31,8 +31,8 @@ class AuthRepositoryImp(
                     updateUserInfo(user) { state ->
                         when (state) {
                             is UiState.Success -> {
-                                storeSession(id = it.result.user?.uid ?: "") {
-                                    if (it == null) {
+                                storeSession(id = it.result.user?.uid ?: "") { i ->
+                                    if (i == null) {
                                         result.invoke(UiState.Failure("User register successfully but session failed to store"))
                                     } else {
                                         result.invoke(

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    val repository: AuthRepository
+    private val repository: AuthRepository
 ): ViewModel() {
 
     private val _register = MutableLiveData<UiState<String>>()
