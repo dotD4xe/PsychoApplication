@@ -19,6 +19,9 @@
             app:destination="@id/home_navigation"
             app:popUpTo="@+id/application_navigation_gaph"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_LoginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/RegistrationFragment"
@@ -33,5 +36,10 @@
     </fragment>
 
     <include app:graph="@navigation/home_navigation"/>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.psychoapplication.ui.auth.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
 
 </navigation>
