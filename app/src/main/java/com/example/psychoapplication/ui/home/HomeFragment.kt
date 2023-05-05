@@ -38,6 +38,19 @@ class HomeFragment : Fragment() {
         }
         authViewModel.getSession {
             binding.helloText.text = activity?.getString(R.string.hello, it?.name.toString())
+            println(it?.id)
+        }
+
+        binding.changeName.setOnClickListener {
+            authViewModel.getSession {
+                it!!.name = binding.name.text.toString()
+                authViewModel.updateUserInfo(it)
+
+
+                authViewModel.updateSession(it) { user ->
+                    binding.helloText.text = activity?.getString(R.string.hello, user?.name.toString())
+                }
+            }
         }
 
     }
