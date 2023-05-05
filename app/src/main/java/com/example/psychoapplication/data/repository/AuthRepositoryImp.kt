@@ -148,6 +148,17 @@ class AuthRepositoryImp(
             }
     }
 
+    override fun updateSession(user: User, result: (User?) -> Unit) {
+        appPreferences.edit().putString(SharedPrefConstants.USER_SESSION, gson.toJson(user)).apply()
+        val userStr = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
+        if (userStr == null) {
+            result.invoke(null)
+        } else {
+            val currentUser = gson.fromJson(userStr, User::class.java)
+            result.invoke(currentUser)
+        }
+    }
+
     override fun getSession(result: (User?) -> Unit) {
         val userStr = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
         if (userStr == null) {
