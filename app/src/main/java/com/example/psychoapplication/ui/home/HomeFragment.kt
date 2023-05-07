@@ -32,33 +32,33 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.logout.setOnClickListener {
-            authViewModel.logout {
-                findTopNavController().navigate(R.id.LoginFragment, null, navOptions {
-                    popUpTo(R.id.tabsFragment) {
-                        inclusive = true
-                    }
-                })
-//                val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-//                this.findNavController().navigate(action)
-            }
-        }
-        authViewModel.getSession {
-            binding.helloText.text = activity?.getString(R.string.hello, it?.name.toString())
-            println(it?.id)
-        }
-
-        binding.changeName.setOnClickListener {
-            authViewModel.getSession {
-                it!!.name = binding.name.text.toString()
-                authViewModel.updateUserInfo(it)
+//        binding.logout.setOnClickListener {
+//            authViewModel.logout {
+//                findTopNavController().navigate(R.id.LoginFragment, null, navOptions {
+//                    popUpTo(R.id.tabsFragment) {
+//                        inclusive = true
+//                    }
+//                })
+//            }
+//        }
 
 
-                authViewModel.updateSession(it) { user ->
-                    binding.helloText.text = activity?.getString(R.string.hello, user?.name.toString())
-                }
-            }
-        }
+//        authViewModel.getSession {
+//            binding.helloText.text = activity?.getString(R.string.hello, it?.name.toString())
+//            println(it?.id)
+//        }
+//
+//        binding.changeName.setOnClickListener {
+//            authViewModel.getSession {
+//                it!!.name = binding.name.text.toString()
+//                authViewModel.updateUserInfo(it)
+//
+//
+//                authViewModel.updateSession(it) { user ->
+//                    binding.helloText.text = activity?.getString(R.string.hello, user?.name.toString())
+//                }
+//            }
+//        }
 
     }
 
