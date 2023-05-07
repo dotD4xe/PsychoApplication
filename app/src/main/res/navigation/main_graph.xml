@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/application_navigation_gaph"
+    android:id="@+id/main_graph"
     app:startDestination="@id/LoginFragment">
 
     <fragment
@@ -15,13 +15,13 @@
             app:destination="@id/RegistrationFragment"
             app:launchSingleTop="true" />
         <action
-            android:id="@+id/action_LoginFragment_to_home_navigation"
-            app:destination="@id/home_navigation"
-            app:popUpTo="@+id/application_navigation_gaph"
-            app:popUpToInclusive="true"/>
-        <action
             android:id="@+id/action_LoginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/RegistrationFragment"
@@ -29,17 +29,21 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_registerFragment_to_home_navigation"
-            app:destination="@id/home_navigation"
-            app:popUpTo="@+id/application_navigation_gaph"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_RegistrationFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 
-    <include app:graph="@navigation/home_navigation"/>
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.example.psychoapplication.ui.auth.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.psychoapplication.ui.tabs.TabsFragment"
+        android:label="fragment_tabs"
+        tools:layout="@layout/fragment_tabs" />
 
 </navigation>

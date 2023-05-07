@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.psychoapplication.R
-import com.example.psychoapplication.databinding.FragmentTestBinding
+import com.example.psychoapplication.databinding.FragmentHomeBinding
 import com.example.psychoapplication.ui.auth.AuthViewModel
+import com.example.psychoapplication.util.findTopNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentTestBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val authViewModel: AuthViewModel by viewModels()
@@ -24,7 +26,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTestBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,8 +34,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.logout.setOnClickListener {
             authViewModel.logout {
-                val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-                this.findNavController().navigate(action)
+                findTopNavController().navigate(R.id.LoginFragment, null, navOptions {
+                    popUpTo(R.id.tabsFragment) {
+                        inclusive = true
+                    }
+                })
+//                val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+//                this.findNavController().navigate(action)
             }
         }
         authViewModel.getSession {

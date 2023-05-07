@@ -40,6 +40,9 @@ class RegistrationFragment : Fragment() {
                 )
             }
         }
+        binding.back.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun observer() {
@@ -58,7 +61,7 @@ class RegistrationFragment : Fragment() {
                     binding.registerBtn.text = "Register"
                     binding.registerProgress.hide()
                     toast(state.data)
-                    val action = RegistrationFragmentDirections.actionRegisterFragmentToHomeNavigation()
+                    val action = RegistrationFragmentDirections.actionRegistrationFragmentToTabsFragment()
                     this.findNavController().navigate(action)
                 }
             }
