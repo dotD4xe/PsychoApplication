@@ -14,4 +14,14 @@
     <string name="password_login">Password</string>
     <string name="i_don_t_have_an_account">I don\'t have an account</string>
     <string name="login">Login</string>
+    <string name="home">Главная</string>
+    <string name="articles">Статьи</string>
+    <string name="settings">Настройки</string>
+    <string name="description">это сложная тема, связанная с неполадками в психической сфере, которые могут проявляться различными способами. В некоторых случаях, оно может серьезно повлиять на жизнь человека и окружающих его людей.</string>
+    <string name="description_diagnostics">это процесс, позволяющий выявить определенные черты личности, которые могут привести к нарушению социальной и межличностной адаптации. В результате диагностики устанавливаются конкретные характеристики личности, которые помогают определить возможное наличие расстройства личности.</string>
+    <string name="icon_back">icon back</string>
+    <string name="rl">Расстройство личности</string>
+    <string name="what_rl">Что такое расстройство личности?</string>
+    <string name="diagnostic">Диагностика</string>
+    <string name="diagnostic_rl">Диагностика расстройства личности</string>
 </resources>

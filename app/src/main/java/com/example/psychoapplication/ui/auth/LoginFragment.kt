@@ -66,7 +66,7 @@ class LoginFragment : Fragment() {
                     binding.loginBtn.text = "Login"
                     binding.loginProgress.hide()
                     toast(state.data)
-                    val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
+                    val action = LoginFragmentDirections.actionLoginFragmentToTabsFragment()
                     this.findNavController().navigate(action)
                 }
             }
@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
         super.onStart()
         viewModel.getSession { user ->
             if (user != null){
-                val action = LoginFragmentDirections.actionLoginFragmentToHomeNavigation()
+                val action = LoginFragmentDirections.actionLoginFragmentToTabsFragment()
                 this.findNavController().navigate(action)
             }
         }

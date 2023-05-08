@@ -3,6 +3,8 @@ package com.example.psychoapplication.di
 import android.content.SharedPreferences
 import com.example.psychoapplication.data.repository.AuthRepository
 import com.example.psychoapplication.data.repository.AuthRepositoryImp
+import com.example.psychoapplication.data.repository.HomeRepository
+import com.example.psychoapplication.data.repository.HomeRepositoryImp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
@@ -25,5 +27,13 @@ object RepositoryModule {
         gson: Gson
     ): AuthRepository {
         return AuthRepositoryImp(auth,database,appPreferences,gson)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHomeRepository(
+        database: FirebaseFirestore,
+    ): HomeRepository {
+        return HomeRepositoryImp(database)
     }
 }
