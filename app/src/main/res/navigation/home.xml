@@ -15,5 +15,6 @@
             app:destination="@id/LoginFragment"
             app:popUpTo="@id/tabs_graph"
             app:popUpToInclusive="true"/>
+
     </fragment>
 </navigation>
