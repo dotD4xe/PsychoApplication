@@ -2,6 +2,13 @@ package com.example.psychoapplication.util
 
 object FireStoreCollection{
     const val USER = "USER"
+    const val INFORMATION = "INFORMATION"
+    const val ARTICLES = "ARTICLES"
+}
+
+object FireStoreDocumentField {
+    val DATE = "date"
+    val ID = "id"
 }
 
 object SharedPrefConstants {
