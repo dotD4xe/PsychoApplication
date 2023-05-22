@@ -24,4 +24,17 @@
     <string name="what_rl">Что такое расстройство личности?</string>
     <string name="diagnostic">Диагностика</string>
     <string name="diagnostic_rl">Диагностика расстройства личности</string>
+    <string name="page_1_name">Page 1/13</string>
+    <string name="page_2_name">Page 2/13</string>
+    <string name="page_3_name">Page 3/13</string>
+    <string name="page_4_name">Page 4/13</string>
+    <string name="page_5_name">Page 5/13</string>
+    <string name="page_6_name">Page 6/13</string>
+    <string name="page_7_name">Page 7/13</string>
+    <string name="page_8_name">Page 8/13</string>
+    <string name="page_9_name">Page 9/13</string>
+    <string name="page_10_name">Page 10/13</string>
+    <string name="page_11_name">Page 11/13</string>
+    <string name="page_12_name">Page 12/13</string>
+    <string name="page_13_name">Page 13/13</string>
 </resources>

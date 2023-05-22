@@ -6,17 +6,6 @@ android:layout_height="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:padding="30dp"
 tools:context=".ui.auth.LoginFragment">
-
-    <Button
-        android:id="@+id/registerBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints">
-
-    </Button>
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
