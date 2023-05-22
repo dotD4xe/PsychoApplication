@@ -5,12 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.psychoapplication.R
 import com.example.psychoapplication.databinding.FragmentUserSettingsBinding
-import com.example.psychoapplication.ui.auth.AuthViewModel
-import com.example.psychoapplication.util.findTopNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +13,6 @@ class UserSettingsFragment : Fragment() {
 
     private var _binding: FragmentUserSettingsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +44,6 @@ class UserSettingsFragment : Fragment() {
 ////            homeViewModel.getInfo("what_is_rl")
 ////            observer()
 //        }
-        binding.exit.setOnClickListener {
-            viewModel.logout {
-                findTopNavController().navigate(R.id.LoginFragment)
-            }
-
-        }
     }
 
     override fun onDestroy() {
