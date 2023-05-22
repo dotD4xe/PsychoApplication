@@ -24,7 +24,7 @@
     <string name="what_rl">Что такое расстройство личности?</string>
     <string name="diagnostic">Диагностика</string>
     <string name="diagnostic_rl">Диагностика расстройства личности</string>
-    <string name="page_1_name">Page 1/13</string>
+    <string name="page_1_name">Aritcle 1</string>
     <string name="page_2_name">Page 2/13</string>
     <string name="page_3_name">Page 3/13</string>
     <string name="page_4_name">Page 4/13</string>
@@ -37,4 +37,8 @@
     <string name="page_11_name">Page 11/13</string>
     <string name="page_12_name">Page 12/13</string>
     <string name="page_13_name">Page 13/13</string>
+    <string name="FiveSoveit">Топ советов</string>
+    <string name="Top_five_recommendate">Топ советов по психотерапии</string>
+    <string name="description_Top_five_soveit">Здесь будет рассказано топ три совета от лучших специалистов  которые расскажут как вам помочь с этой тяжелой ситуацией.</string>
+
 </resources>

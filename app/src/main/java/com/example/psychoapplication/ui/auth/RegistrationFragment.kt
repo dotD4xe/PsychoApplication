@@ -64,6 +64,7 @@ class RegistrationFragment : Fragment() {
                     val action = RegistrationFragmentDirections.actionRegistrationFragmentToTabsFragment()
                     this.findNavController().navigate(action)
                 }
+                else -> { }
             }
         }
     }
