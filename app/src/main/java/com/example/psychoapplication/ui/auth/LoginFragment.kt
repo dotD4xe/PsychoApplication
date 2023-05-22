@@ -69,6 +69,7 @@ class LoginFragment : Fragment() {
                     val action = LoginFragmentDirections.actionLoginFragmentToTabsFragment()
                     this.findNavController().navigate(action)
                 }
+                else -> { }
             }
         }
     }

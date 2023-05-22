@@ -8,70 +8,65 @@
     tools:context=".ui.auth.LoginFragment">
     <ImageView
         android:id="@+id/logo"
+        android:layout_marginTop="60dp"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:src="@drawable/logo"
+        android:layout_height="wrap_content"
+        android:src="@drawable/_kozel_kozlina_"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/email_label"
+        android:id="@+id/twLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Email"
+        android:layout_marginTop="40dp"
+        android:text="Login"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        />
 
     <EditText
         android:id="@+id/email_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:background="@drawable/black_white_rect_bg"
+        android:drawableStart="@drawable/_icon__envelope_lines_thin_1"
+        android:drawablePadding="15dp"
         android:ems="10"
+        android:hint="Email address"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:paddingStart="15dp"
         android:textColor="@color/black"
-        android:textSize="14dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_label" />
-
-    <TextView
-        android:id="@+id/pass_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Password"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/email_et"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_et"
-        app:layout_constraintTop_toBottomOf="@+id/email_et" />
+        app:layout_constraintTop_toBottomOf="@+id/twLogin" />
 
     <EditText
         android:id="@+id/pass_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:hint="Password"
+        android:paddingStart="15dp"
+        android:drawablePadding="15dp"
+        android:drawableStart="@drawable/_ic_zamok"
         android:background="@drawable/black_white_rect_bg"
         android:inputType="textPassword"
         android:textColor="@color/black"
-        android:textSize="14dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/email_et"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/email_et"
-        app:layout_constraintTop_toBottomOf="@+id/pass_label" />
+        app:layout_constraintTop_toBottomOf="@+id/email_et"
+        android:layout_marginTop="25dp"/>
 
     <TextView
         android:id="@+id/register_label"
@@ -79,19 +74,36 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:padding="5dp"
-        android:text="I dont have ac"
+        android:text="Are you new?"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/email_et"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toStartOf="@+id/email_et"
+        app:layout_constraintTop_toBottomOf="@+id/button_layout"
+        />
+
+    <TextView
+        android:id="@+id/register_label_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="5dp"
+        android:text="Create new "
+        android:textColor="#FF0000"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/email_et"
+        app:layout_constraintHorizontal_bias="0.74"
         app:layout_constraintStart_toStartOf="@+id/email_et"
         app:layout_constraintTop_toBottomOf="@+id/button_layout" />
+
+
 
     <RelativeLayout
         android:id="@+id/button_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/email_et"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/email_et"
@@ -102,10 +114,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/black_rect_bg"
-            android:text="Login"
+            android:text="Sign In"
+            app:cornerRadius="30dp"
             android:textSize="20sp"
             android:gravity="center"
-            android:textStyle="bold"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:backgroundTint="@color/black" />
@@ -127,8 +139,10 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textColor="@color/black"
-        android:text="Forgot password"
+        android:text="Forgot password?"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/register_label"
+        app:layout_constraintEnd_toEndOf="@id/register_label_2"
         app:layout_constraintTop_toBottomOf="@id/register_label"/>
 
 
