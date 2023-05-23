@@ -1,562 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="1dp"
-    tools:context=".ui.auth.LoginFragment">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/exit"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/_icon__exit_bold_"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ImageView
-        android:id="@+id/logo"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/_kozel_kozlina_"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:clipToPadding="true"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/logo"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        tools:context=".ui.auth.LoginFragment">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/exit"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/_icon__exit_bold_"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/description" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/_kozel_kozlina_"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/description" />
+
+        <TextView
+            android:id="@+id/name_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            tools:text="Данил"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo"/>
+
+        <TextView
+            android:id="@+id/email_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="davas123@mail.ru"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
-            android:paddingBottom="35dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:alpha="0.6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_et"/>
+
+        <TextView
+            android:id="@+id/twText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/edit_data"
+            android:paddingBottom="18dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_et" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/black_white_rect_bg"
+            android:drawableStart="@drawable/_ic_zamok"
+            android:drawablePadding="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:hint="@string/old_password"
+            android:inputType="textPassword"
+            android:paddingStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/twText" />
+
+        <EditText
+            android:id="@+id/password1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/black_white_rect_bg"
+            android:drawableStart="@drawable/_ic_zamok"
+            android:drawablePadding="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:hint="@string/new_password"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
 
-            <TextView
-                android:id="@+id/twLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Your Profile"
-                android:layout_gravity="center_horizontal"
-                android:textSize="24sp"
-                android:textStyle="normal"
-                android:textColor="@color/black"
-                />
+        <EditText
+            android:id="@+id/password2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/black_white_rect_bg"
+            android:drawableStart="@drawable/_ic_zamok"
+            android:drawablePadding="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:imeOptions="actionDone"
+            android:hint="@string/confirm_new_password"
+            android:inputType="textPassword"
+            android:paddingStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password1" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <Button
+            android:id="@+id/change_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:background="@drawable/black_rect_bg"
+            app:backgroundTint="@color/black"
+            android:gravity="center"
+            android:text="@string/change"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            app:cornerRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password2"
+            app:layout_constraintBottom_toTopOf="@id/name"/>
 
-                <TextView
-                    android:id="@+id/email_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="18dp"
-                    android:background="@drawable/black_white_rect_bg_copy"
-                    android:drawableStart="@drawable/_icon__envelope_lines_thin_1"
-                    android:drawablePadding="15dp"
-                    android:ems="10"
-                    android:hint="Email"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/twLogin" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/black_white_rect_bg"
+            android:drawableStart="@drawable/_icon__user_"
+            android:drawablePadding="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:hint="@string/new_name"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change_btn" />
 
-                <TextView
-                    android:id="@+id/twShowTextEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginRight="30dp"
-                    android:text="email"
-                    app:layout_constraintBottom_toBottomOf="@id/email_et"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/email_et" />
-
-            </FrameLayout>
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/login_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/black_white_rect_bg_copy"
-                    android:drawableStart="@drawable/_icon__account_bold_"
-                    android:drawablePadding="15dp"
-                    android:ems="10"
-                    android:hint="Login"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/email_et" />
-
-                <TextView
-                    android:id="@+id/twShowTextLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
-                    android:text="login"
-                    app:layout_constraintBottom_toBottomOf="@id/login_et"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/login_et"
-
-                    />
-
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/twText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:layout_marginTop="12dp"
-                android:text="Edit data"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_et" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/black_white_rect_bg_copy"
-                    android:drawableStart="@drawable/_ic_zamok"
-                    android:drawablePadding="15dp"
-                    android:ems="10"
-                    android:imeOptions="actionNext"
-                    android:hint="Old password"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/twText" />
-
-                <ImageView
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/password" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/password1"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/black_white_rect_bg_copy"
-                    android:drawableStart="@drawable/_ic_zamok"
-                    android:drawablePadding="15dp"
-                    android:ems="10"
-                    android:imeOptions="actionNext"
-                    android:hint="New password"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/password" />
-
-                <ImageView
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="45dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/password1" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/password2"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/black_white_rect_bg_copy"
-                    android:drawableStart="@drawable/_ic_zamok"
-                    android:drawablePadding="15dp"
-                    android:ems="10"
-                    android:imeOptions="actionDone"
-                    android:hint="Confirm new password"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/password1" />
-
-                <ImageView
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="45dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/password2" />
-
-            </FrameLayout>
-
-            <Button
-                android:id="@+id/change_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/black_rect_bg"
-                android:gravity="center"
-                android:text="Change"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="normal"
-                app:backgroundTint="#3E8022"
-                app:cornerRadius="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password2" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/black_white_rect_bg_copy"
-                    android:drawableStart="@drawable/_icon__user_"
-                    android:drawablePadding="15dp"
-                    android:ems="10"
-                    android:hint="New name"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/change_btn" />
+        <Button
+            android:id="@+id/change_btn_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:background="@drawable/black_rect_bg"
+            app:backgroundTint="@color/black"
+            android:gravity="center"
+            android:text="@string/change"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            app:cornerRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
 
-                <ImageView
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/name" />
-
-            </FrameLayout>
-
-            <Button
-                android:id="@+id/change_btn_name"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/black_rect_bg_blue"
-                android:gravity="center"
-                android:text="Change"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:backgroundTint="#1C5E93"
-                app:cornerRadius="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--<TextView-->
-<!--android:id="@+id/email_et"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="48dp"-->
-<!--android:layout_marginTop="18dp"-->
-<!--android:background="@drawable/black_white_rect_bg_copy"-->
-<!--android:drawableStart="@drawable/_icon__envelope_lines_thin_1"-->
-<!--android:drawablePadding="15dp"-->
-<!--android:ems="10"-->
-<!--android:hint="Email"-->
-<!--android:inputType="textPersonName"-->
-<!--android:minHeight="48dp"-->
-<!--android:paddingStart="15dp"-->
-<!--android:textColor="@color/black"-->
-<!--android:textSize="16sp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/twLogin" />-->
-
-<!--<TextView-->
-<!--android:id="@+id/twShowTextEmail"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:text="email"-->
-<!--android:layout_marginEnd="20dp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintBottom_toBottomOf="@id/email_et"-->
-<!--app:layout_constraintTop_toTopOf="@id/email_et"-->
-
-<!--    />-->
-
-<!--<TextView-->
-<!--android:id="@+id/login_et"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="48dp"-->
-<!--android:layout_marginTop="5dp"-->
-<!--android:background="@drawable/black_white_rect_bg_copy"-->
-<!--android:drawableStart="@drawable/_icon__account_bold_"-->
-<!--android:drawablePadding="15dp"-->
-<!--android:ems="10"-->
-<!--android:hint="Login"-->
-<!--android:inputType="textPersonName"-->
-<!--android:minHeight="48dp"-->
-<!--android:paddingStart="15dp"-->
-<!--android:textColor="@color/black"-->
-<!--android:textSize="16sp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/email_et" />-->
-
-<!--<TextView-->
-<!--android:id="@+id/twShowTextLogin"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:text="login"-->
-<!--android:layout_marginEnd="20dp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintBottom_toBottomOf="@id/login_et"-->
-<!--app:layout_constraintTop_toTopOf="@id/login_et"-->
-
-<!--    />-->
-
-<!--<TextView-->
-<!--android:id="@+id/twText"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:layout_marginTop="12dp"-->
-<!--android:text="Edit data"-->
-<!--android:textSize="24sp"-->
-<!--android:textStyle="normal"-->
-<!--android:textColor="@color/black"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/login_et"-->
-<!--    />-->
-
-<!--<TextView-->
-<!--android:id="@+id/password"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:layout_marginTop="5dp"-->
-<!--android:background="@drawable/black_white_rect_bg_copy"-->
-<!--android:drawableStart="@drawable/_ic_zamok"-->
-<!--android:drawablePadding="15dp"-->
-<!--android:ems="10"-->
-<!--android:hint="Old password"-->
-<!--android:inputType="textPersonName"-->
-<!--android:minHeight="48dp"-->
-<!--android:paddingStart="15dp"-->
-<!--android:textColor="@color/black"-->
-<!--android:textSize="16sp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/twText" />-->
-
-<!--<ImageView-->
-<!--android:layout_width="300dp"-->
-<!--android:layout_height="1dp"-->
-<!--android:layout_marginTop="40dp"-->
-<!--app:layout_constraintTop_toTopOf="@id/password"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--android:background="@color/black"-->
-<!--    />-->
-
-<!--<TextView-->
-<!--android:id="@+id/password1"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="48dp"-->
-<!--android:layout_marginTop="5dp"-->
-<!--android:background="@drawable/black_white_rect_bg_copy"-->
-<!--android:drawableStart="@drawable/_ic_zamok"-->
-<!--android:drawablePadding="15dp"-->
-<!--android:ems="10"-->
-<!--android:hint="New password"-->
-<!--android:inputType="textPersonName"-->
-<!--android:minHeight="48dp"-->
-<!--android:paddingStart="15dp"-->
-<!--android:textColor="@color/black"-->
-<!--android:textSize="16sp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/password" />-->
-
-<!--<ImageView-->
-<!--android:layout_width="300dp"-->
-<!--android:layout_height="1dp"-->
-<!--android:layout_marginTop="40dp"-->
-<!--app:layout_constraintTop_toTopOf="@id/password1"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--android:background="@color/black"-->
-<!--    />-->
-
-<!--<TextView-->
-<!--android:id="@+id/password2"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="48dp"-->
-<!--android:layout_marginTop="5dp"-->
-<!--android:background="@drawable/black_white_rect_bg_copy"-->
-<!--android:drawableStart="@drawable/_ic_zamok"-->
-<!--android:drawablePadding="15dp"-->
-<!--android:ems="10"-->
-<!--android:hint="Confirm new password"-->
-<!--android:inputType="textPersonName"-->
-<!--android:minHeight="48dp"-->
-<!--android:paddingStart="15dp"-->
-<!--android:textColor="@color/black"-->
-<!--android:textSize="16sp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/password1" />-->
-
-<!--<ImageView-->
-<!--android:layout_width="300dp"-->
-<!--android:layout_height="1dp"-->
-<!--android:layout_marginTop="40dp"-->
-<!--app:layout_constraintTop_toTopOf="@id/password2"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--android:background="@color/black"-->
-<!--    />-->
-
-<!--<Button-->
-<!--android:id="@+id/change_btn"-->
-<!--android:layout_width="220dp"-->
-<!--android:layout_height="48dp"-->
-<!--android:layout_marginTop="12dp"-->
-<!--android:background="@drawable/black_rect_bg"-->
-<!--android:gravity="center"-->
-<!--android:text="Change"-->
-<!--android:textAllCaps="false"-->
-<!--android:textColor="@color/white"-->
-<!--android:textSize="20sp"-->
-<!--app:backgroundTint="#3E8022"-->
-<!--app:cornerRadius="30dp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@id/password2" />-->
-
-<!--<TextView-->
-<!--android:id="@+id/name"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="48dp"-->
-<!--android:layout_marginTop="10dp"-->
-<!--android:background="@drawable/black_white_rect_bg_copy"-->
-<!--android:drawableStart="@drawable/_icon__user_"-->
-<!--android:drawablePadding="15dp"-->
-<!--android:ems="10"-->
-<!--android:hint="New name"-->
-<!--android:inputType="textPersonName"-->
-<!--android:minHeight="48dp"-->
-<!--android:paddingStart="15dp"-->
-<!--android:textColor="@color/black"-->
-<!--android:textSize="16sp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/change_btn" />-->
-
-
-<!--<ImageView-->
-<!--android:layout_width="300dp"-->
-<!--android:layout_height="1dp"-->
-<!--android:layout_marginTop="40dp"-->
-<!--app:layout_constraintTop_toTopOf="@id/name"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--android:background="@color/black"-->
-<!--    />-->
-
-<!--<Button-->
-<!--android:id="@+id/change_btn_name"-->
-<!--android:layout_width="220dp"-->
-<!--android:layout_height="48dp"-->
-<!--android:layout_marginTop="12dp"-->
-<!--android:background="@drawable/black_rect_bg_blue"-->
-<!--android:gravity="center"-->
-<!--android:text="Change"-->
-<!--android:textAllCaps="false"-->
-<!--android:textColor="@color/white"-->
-<!--android:textSize="20sp"-->
-<!--app:backgroundTint="#1C5E93"-->
-<!--app:cornerRadius="30dp"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@id/name" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

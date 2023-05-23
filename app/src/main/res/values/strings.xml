@@ -35,5 +35,11 @@
     <string name="are_you_new">Are you new?</string>
     <string name="send">Send</string>
     <string name="email_address">Email address</string>
+    <string name="confirm_new_password">Подтвердите пароль</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="old_password">Старый пароль</string>
+    <string name="edit_data">Редактирование</string>
+    <string name="new_name">Новое имя</string>
+    <string name="change">Изменить</string>
 
 </resources>
