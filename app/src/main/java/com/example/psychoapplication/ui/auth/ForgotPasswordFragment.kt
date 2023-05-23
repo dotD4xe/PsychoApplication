@@ -60,6 +60,7 @@ class ForgotPasswordFragment : Fragment() {
                     binding.sendProgress.hide()
                     toast(state.data)
                 }
+                else -> {  }
             }
         }
     }

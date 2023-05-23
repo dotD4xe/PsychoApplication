@@ -53,6 +53,7 @@ class ShowTextFragment : Fragment() {
                     binding.label.text = state.data?.label
                     binding.content.text = state.data?.content
                 }
+                else -> { }
             }
         }
     }

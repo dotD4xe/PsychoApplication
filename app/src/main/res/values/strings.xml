@@ -24,4 +24,22 @@
     <string name="what_rl">Что такое расстройство личности?</string>
     <string name="diagnostic">Диагностика</string>
     <string name="diagnostic_rl">Диагностика расстройства личности</string>
+    <string name="FiveSoveit">Топ советов</string>
+    <string name="Top_five_recommendate">Топ советов по психотерапии</string>
+    <string name="description_Top_five_soveit">Здесь будет рассказано топ три совета от лучших специалистов  которые расскажут как вам помочь с этой тяжелой ситуацией.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="full_name">Full name</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_new">Create new</string>
+    <string name="are_you_new">Are you new?</string>
+    <string name="send">Send</string>
+    <string name="email_address">Email address</string>
+    <string name="confirm_new_password">Подтвердите пароль</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="old_password">Старый пароль</string>
+    <string name="edit_data">Редактирование</string>
+    <string name="new_name">Новое имя</string>
+    <string name="change">Изменить</string>
+
 </resources>
