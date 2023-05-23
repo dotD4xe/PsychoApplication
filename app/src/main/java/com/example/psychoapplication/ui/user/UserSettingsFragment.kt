@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.psychoapplication.R
 import com.example.psychoapplication.databinding.FragmentUserSettingsBinding
 import com.example.psychoapplication.ui.auth.AuthViewModel
@@ -52,9 +52,12 @@ class UserSettingsFragment : Fragment() {
 //        }
         binding.exit.setOnClickListener {
             viewModel.logout {
-                findTopNavController().navigate(R.id.LoginFragment)
+                findTopNavController().navigate(R.id.LoginFragment, null, navOptions {
+                    popUpTo(R.id.tabsFragment) {
+                        inclusive = true
+                    }
+                })
             }
-
         }
     }
 
