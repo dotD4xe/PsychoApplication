@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.navOptions
 import com.example.psychoapplication.R
 import com.example.psychoapplication.databinding.FragmentUserSettingsBinding
-import com.example.psychoapplication.ui.auth.AuthViewModel
 import com.example.psychoapplication.util.findTopNavController
+import com.example.psychoapplication.util.toast
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +20,9 @@ class UserSettingsFragment : Fragment() {
 
     private var _binding: FragmentUserSettingsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AuthViewModel by viewModels()
+    private val viewModel: UserViewModel by viewModels()
+
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,26 +34,24 @@ class UserSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //        authViewModel.getSession {
-//            binding.helloText.text = activity?.getString(R.string.hello, it?.name.toString())
-//            println(it?.id)
-//        }
-//
-//        binding.changeName.setOnClickListener {
-//            authViewModel.getSession {
-//                it!!.name = binding.name.text.toString()
-//                authViewModel.updateUserInfo(it)
-//
-//
-//                authViewModel.updateSession(it) { user ->
-//                    binding.helloText.text = activity?.getString(R.string.hello, user?.name.toString())
-//                }
-//            }
-//        }
-//        binding.rlCard.setOnClickListener {
-////            homeViewModel.getInfo("what_is_rl")
-////            observer()
-//        }
+
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        viewModel.getSession {
+            binding.nameEt.text = it?.name.toString()
+            binding.emailEt.text = it?.email.toString()
+        }
+
+        binding.changeBtnName.setOnClickListener {
+            viewModel.getSession {
+                it!!.name = binding.name.text.toString()
+
+                viewModel.updateSession(it) { user ->
+                    binding.nameEt.text = user?.name.toString()
+                }
+            }
+        }
+
         binding.exit.setOnClickListener {
             viewModel.logout {
                 findTopNavController().navigate(R.id.LoginFragment, null, navOptions {
@@ -59,6 +61,36 @@ class UserSettingsFragment : Fragment() {
                 })
             }
         }
+
+        binding.changeBtn.setOnClickListener {
+            updatePassword(binding.password.text.toString(), binding.password1.text.toString())
+        }
+    }
+
+    private fun updatePassword(oldPassword: String, newPassword: String) {
+        //get current user
+        println(oldPassword)
+        println(newPassword)
+        val user = firebaseAuth.currentUser
+        //before changing password re-authenticate the user
+        val authCredential = EmailAuthProvider.getCredential(user!!.email!!, oldPassword)
+        user.reauthenticate(authCredential)
+            .addOnSuccessListener {
+                //successfully authenticated, begin update
+                user.updatePassword(newPassword)
+                    .addOnSuccessListener {
+                        //password updated
+                        toast("Password Updated...")
+                    }
+                    .addOnFailureListener { e ->
+                        //failed updating password, show reason
+                        toast(e.message)
+                    }
+            }
+            .addOnFailureListener { e ->
+                //authentication failed, show reason
+                toast(e.message)
+            }
     }
 
     override fun onDestroy() {
