@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.psychoapplication.R
 import com.example.psychoapplication.databinding.FragmentForgotPasswordBinding
-import com.example.psychoapplication.databinding.FragmentLoginBinding
 import com.example.psychoapplication.util.UiState
 import com.example.psychoapplication.util.hide
 import com.example.psychoapplication.util.show
@@ -43,6 +42,8 @@ class ForgotPasswordFragment : Fragment() {
         }
     }
 
+    private fun validation(){TODO("сделать валидацию а то крашит")}
+
     private fun observer(){
         viewModel.forgotPassword.observe(viewLifecycleOwner) { state ->
             when(state){
@@ -51,12 +52,12 @@ class ForgotPasswordFragment : Fragment() {
                     binding.sendProgress.show()
                 }
                 is UiState.Failure -> {
-                    binding.sendBtn.text = "Login"
+                    binding.sendBtn.text = getString(R.string.send)
                     binding.sendProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    binding.sendBtn.text = "Login"
+                    binding.sendBtn.text = getString(R.string.send)
                     binding.sendProgress.hide()
                     toast(state.data)
                 }

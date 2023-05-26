@@ -1,6 +1,7 @@
 package com.example.psychoapplication.ui.user
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,6 @@ class UserSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observerName()
         observerPassword()
         viewModel.getSession {
@@ -40,7 +40,8 @@ class UserSettingsFragment : Fragment() {
         }
 
         binding.changeBtnName.setOnClickListener {
-            viewModel.updateUserInfo(binding.name.text.toString())
+
+            if (nameValidation()) viewModel.updateUserInfo(binding.name.text.toString())
         }
 
         binding.exit.setOnClickListener {
@@ -54,8 +55,54 @@ class UserSettingsFragment : Fragment() {
         }
 
         binding.changeBtn.setOnClickListener {
-            viewModel.updatePassword(binding.emailEt.text.toString(), binding.password.text.toString(), binding.password1.text.toString())
+            if (passwordValidation()) viewModel.updatePassword(binding.emailEt.text.toString(), binding.password.text.toString(), binding.password1.text.toString())
         }
+    }
+
+    private fun passwordValidation(): Boolean {
+        var isValid = true
+        binding.passwordField.error = null
+        binding.passwordField1.error = null
+        binding.passwordField2.error = null
+        if (binding.password.text.toString().isBlank()) {
+            isValid = false
+            binding.passwordField.error = "Введите пароль"
+        }
+        if (binding.password1.text.isBlank()){
+            isValid = false
+            binding.passwordField1.error = "Введите пароль"
+        }else{
+            if (binding.password1.text.toString().length < 6){
+                isValid = false
+                binding.passwordField1.error = "в пароле должно быть больше 6 символов"
+            }
+        }
+        if (binding.password2.text.isBlank()){
+            isValid = false
+            binding.passwordField2.error = "Введите пароль"
+        }else{
+            if (binding.password2.text.toString().length < 6){
+                isValid = false
+                binding.passwordField2.error = "в пароле должно быть больше 6 символов"
+            }
+        }
+        if (binding.password1.text.toString() != binding.password2.text.toString()) {
+            binding.passwordField2.error = "Пароли не совпадают"
+        }
+        return isValid
+    }
+
+    private fun nameValidation(): Boolean {
+        binding.nameField.error = null
+        binding.nameField.clearFocus()
+        var isValid = true
+
+        if (binding.name.text.isBlank()){
+            Log.d("ayash", binding.name.text.toString())
+            isValid = false
+            binding.nameField.error = "Введите имя"
+        }
+        return isValid
     }
 
     private fun observerPassword() {
