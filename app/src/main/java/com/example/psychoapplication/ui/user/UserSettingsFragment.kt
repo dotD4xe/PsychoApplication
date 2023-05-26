@@ -9,10 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.navOptions
 import com.example.psychoapplication.R
 import com.example.psychoapplication.databinding.FragmentUserSettingsBinding
+import com.example.psychoapplication.util.UiState
 import com.example.psychoapplication.util.findTopNavController
 import com.example.psychoapplication.util.toast
-import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,8 +20,6 @@ class UserSettingsFragment : Fragment() {
     private var _binding: FragmentUserSettingsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UserViewModel by viewModels()
-
-    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,21 +32,15 @@ class UserSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firebaseAuth = FirebaseAuth.getInstance()
-
+        observerName()
+        observerPassword()
         viewModel.getSession {
             binding.nameEt.text = it?.name.toString()
             binding.emailEt.text = it?.email.toString()
         }
 
         binding.changeBtnName.setOnClickListener {
-            viewModel.getSession {
-                it!!.name = binding.name.text.toString()
-
-                viewModel.updateSession(it) { user ->
-                    binding.nameEt.text = user?.name.toString()
-                }
-            }
+            viewModel.updateUserInfo(binding.name.text.toString())
         }
 
         binding.exit.setOnClickListener {
@@ -63,34 +54,37 @@ class UserSettingsFragment : Fragment() {
         }
 
         binding.changeBtn.setOnClickListener {
-            updatePassword(binding.password.text.toString(), binding.password1.text.toString())
+            viewModel.updatePassword(binding.emailEt.text.toString(), binding.password.text.toString(), binding.password1.text.toString())
         }
     }
 
-    private fun updatePassword(oldPassword: String, newPassword: String) {
-        //get current user
-        println(oldPassword)
-        println(newPassword)
-        val user = firebaseAuth.currentUser
-        //before changing password re-authenticate the user
-        val authCredential = EmailAuthProvider.getCredential(user!!.email!!, oldPassword)
-        user.reauthenticate(authCredential)
-            .addOnSuccessListener {
-                //successfully authenticated, begin update
-                user.updatePassword(newPassword)
-                    .addOnSuccessListener {
-                        //password updated
-                        toast("Password Updated...")
-                    }
-                    .addOnFailureListener { e ->
-                        //failed updating password, show reason
-                        toast(e.message)
-                    }
+    private fun observerPassword() {
+        viewModel.updatePassword.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UiState.Failure -> {
+                    toast(state.error)
+                }
+                is UiState.Success -> {
+                    toast(state.data)
+                }
+                else -> {  }
             }
-            .addOnFailureListener { e ->
-                //authentication failed, show reason
-                toast(e.message)
+        }
+    }
+
+    private fun observerName(){
+        viewModel.updateUserInfo.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UiState.Failure -> {
+                    toast(state.error)
+                }
+                is UiState.Success -> {
+                    binding.nameEt.text = state.data.name
+                    toast(state.data.name)
+                }
+                else -> {  }
             }
+        }
     }
 
     override fun onDestroy() {
