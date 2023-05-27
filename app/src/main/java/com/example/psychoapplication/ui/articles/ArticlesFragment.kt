@@ -5,16 +5,44 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.psychoapplication.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.psychoapplication.data.model.Article
+import com.example.psychoapplication.databinding.FragmentArticlesBinding
 
 class ArticlesFragment : Fragment() {
+
+    private var _binding: FragmentArticlesBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var recyclerView: RecyclerView
+
+    val adapter by lazy {
+        ArticlesAdapter(
+            onItemClicked = { pos, item -> }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_articles, container, false)
+    ): View {
+        _binding = FragmentArticlesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val articles = listOf(Article("test", 1, "test"))
+        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+        adapter.submitList(articles)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
