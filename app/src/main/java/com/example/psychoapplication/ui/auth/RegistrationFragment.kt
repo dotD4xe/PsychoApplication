@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.psychoapplication.R
 import com.example.psychoapplication.data.model.User
 import com.example.psychoapplication.databinding.FragmentRegistrationBinding
 import com.example.psychoapplication.util.*
@@ -53,12 +54,12 @@ class RegistrationFragment : Fragment() {
                     binding.registerProgress.show()
                 }
                 is UiState.Failure -> {
-                    binding.registerBtn.text = "Register"
+                    binding.registerBtn.text = getString(R.string.registration)
                     binding.registerProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    binding.registerBtn.text = "Register"
+                    binding.registerBtn.text = getString(R.string.registration)
                     binding.registerProgress.hide()
                     toast(state.data)
                     val action = RegistrationFragmentDirections.actionRegistrationFragmentToTabsFragment()

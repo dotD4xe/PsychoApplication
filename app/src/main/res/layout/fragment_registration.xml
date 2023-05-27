@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:background="@drawable/black_rect_bg"
-        android:text="@string/sign_up"
+        android:text="@string/registrations"
         app:cornerRadius="30dp"
         android:textSize="20sp"
         android:textAllCaps="false"
