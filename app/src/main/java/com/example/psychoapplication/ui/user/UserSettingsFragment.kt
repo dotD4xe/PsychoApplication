@@ -1,7 +1,6 @@
 package com.example.psychoapplication.ui.user
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,18 +43,20 @@ class UserSettingsFragment : Fragment() {
             if (nameValidation()) viewModel.updateUserInfo(binding.name.text.toString())
         }
 
-        binding.exit.setOnClickListener {
-            viewModel.logout {
-                findTopNavController().navigate(R.id.LoginFragment, null, navOptions {
-                    popUpTo(R.id.tabsFragment) {
-                        inclusive = true
-                    }
-                })
-            }
-        }
+        binding.exit.setOnClickListener { logout() }
 
         binding.changeBtn.setOnClickListener {
             if (passwordValidation()) viewModel.updatePassword(binding.emailEt.text.toString(), binding.password.text.toString(), binding.password1.text.toString())
+        }
+    }
+
+    private fun logout() {
+        viewModel.logout {
+            findTopNavController().navigate(R.id.LoginFragment, null, navOptions {
+                popUpTo(R.id.tabsFragment) {
+                    inclusive = true
+                }
+            })
         }
     }
 
@@ -98,7 +99,6 @@ class UserSettingsFragment : Fragment() {
         var isValid = true
 
         if (binding.name.text.isBlank()){
-            Log.d("ayash", binding.name.text.toString())
             isValid = false
             binding.nameField.error = "Введите имя"
         }
