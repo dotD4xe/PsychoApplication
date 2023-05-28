@@ -10,7 +10,7 @@
     android:clickable="true"
     app:cardCornerRadius="12dp"
     app:cardBackgroundColor="@color/white"
-    app:cardElevation="20dp"
+    app:cardElevation="15dp"
     android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,14 +27,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="22sp"
-            tools:text="asdasdasdasdasdasadadadarsdadasdad"
+            tools:text="Расстройство личности"
+            android:textColor="@color/black"
+            android:paddingBottom="5dp"
             android:maxLines="1"
             android:ellipsize="end"
             android:singleLine="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/next"
-            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/contentDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            tools:text="Расстройство личностиРасстройство личностиРасстройство личностиРасстройство личностиРасстройство личности"
+            android:maxLines="3"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/next"
+            app:layout_constraintTop_toBottomOf="@id/title"/>
 
         <ImageView
             android:id="@+id/next"

@@ -7,8 +7,8 @@ import java.util.Date
 
 @Parcelize
 data class Article(
-    var content: String = "",
-    val likes: Number = 0,
+    val content: String = "",
+    val likes: Int = 0,
     val title: String = "",
     @ServerTimestamp
     val date: Date = Date(),

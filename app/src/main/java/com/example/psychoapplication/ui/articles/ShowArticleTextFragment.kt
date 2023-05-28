@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.psychoapplication.data.model.Article
 import com.example.psychoapplication.databinding.FragmentShowArticleTextBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShowArticleTextFragment : Fragment() {
 
     private var _binding: FragmentShowArticleTextBinding? = null

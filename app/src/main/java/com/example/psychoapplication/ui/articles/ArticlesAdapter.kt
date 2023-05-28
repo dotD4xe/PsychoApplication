@@ -15,6 +15,7 @@ class ArticlesAdapter(
     inner class ArticlesViewHolder(private val binding: ArticlesItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.title.text = article.title
+            binding.contentDescription.text = article.content
             binding.itemLayout.setOnClickListener { onItemClicked.invoke(adapterPosition,article) }
         }
     }

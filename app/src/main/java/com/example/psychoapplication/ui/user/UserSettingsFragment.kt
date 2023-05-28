@@ -39,7 +39,6 @@ class UserSettingsFragment : Fragment() {
         }
 
         binding.changeBtnName.setOnClickListener {
-
             if (nameValidation()) viewModel.updateUserInfo(binding.name.text.toString())
         }
 
