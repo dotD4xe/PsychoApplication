@@ -38,5 +38,7 @@
     <string name="new_name">Новое имя</string>
     <string name="change">Изменить</string>
     <string name="registrations">зарегистрироваться</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

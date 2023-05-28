@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.psychoapplication.R
 import com.example.psychoapplication.data.model.Article
 import com.example.psychoapplication.databinding.FragmentArticlesBinding
+import com.example.psychoapplication.util.findTopNavController
 
 class ArticlesFragment : Fragment() {
 
@@ -17,9 +19,13 @@ class ArticlesFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
-    val adapter by lazy {
+    private val adapter by lazy {
         ArticlesAdapter(
-            onItemClicked = { pos, item -> }
+            onItemClicked = { pos, item ->
+                findTopNavController().navigate(R.id.showArticleTextFragment,Bundle().apply {
+                    putParcelable("article",item)
+                })
+            }
         )
     }
 
