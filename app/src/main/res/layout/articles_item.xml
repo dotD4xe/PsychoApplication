@@ -50,6 +50,16 @@
             app:layout_constraintEnd_toStartOf="@id/next"
             app:layout_constraintTop_toBottomOf="@id/title"/>
 
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:textSize="17sp"
+            tools:text="07 May 2023"
+            app:layout_constraintTop_toBottomOf="@id/contentDescription"
+            app:layout_constraintEnd_toStartOf="@id/next"/>
+
         <ImageView
             android:id="@+id/next"
             android:layout_width="wrap_content"

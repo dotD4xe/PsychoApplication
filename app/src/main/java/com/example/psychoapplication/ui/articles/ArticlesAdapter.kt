@@ -1,5 +1,6 @@
 package com.example.psychoapplication.ui.articles
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,15 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psychoapplication.data.model.Article
 import com.example.psychoapplication.databinding.ArticlesItemBinding
+import java.text.SimpleDateFormat
 
+@SuppressLint("SimpleDateFormat")
 class ArticlesAdapter(
     private val onItemClicked: (Int, Article) -> Unit
 ) : ListAdapter<Article, ArticlesAdapter.ArticlesViewHolder>(DiffCallback) {
+
+    val sdf = SimpleDateFormat("dd MMM yyyy")
 
     inner class ArticlesViewHolder(private val binding: ArticlesItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.title.text = article.title
             binding.contentDescription.text = article.content
+            binding.date.text = sdf.format(article.date)
             binding.itemLayout.setOnClickListener { onItemClicked.invoke(adapterPosition,article) }
         }
     }

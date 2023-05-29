@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.psychoapplication.data.model.Article
 import com.example.psychoapplication.databinding.FragmentShowArticleTextBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class ShowArticleTextFragment : Fragment() {
