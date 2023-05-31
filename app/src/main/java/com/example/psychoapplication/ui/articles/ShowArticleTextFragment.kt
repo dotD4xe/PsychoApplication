@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.psychoapplication.data.model.Article
 import com.example.psychoapplication.databinding.FragmentShowArticleTextBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,11 +38,17 @@ class ShowArticleTextFragment : Fragment() {
             binding.content.text = it.content
             binding.date.text = getDateTime(it.date)
         }
+        binding.back.setOnClickListener { findNavController().navigateUp() }
     }
 
     @SuppressLint("SimpleDateFormat")
     private fun getDateTime(s: Date): String {
         val sdf = SimpleDateFormat("MM/dd/yyyy")
         return sdf.format(s)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
