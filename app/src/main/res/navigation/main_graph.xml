@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_tabsFragment_to_showTextFragment"
             app:destination="@id/showTextFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_showArticleTextFragment"
+            app:destination="@id/showArticleTextFragment" />
     </fragment>
     <fragment
         android:id="@+id/showTextFragment"
@@ -55,5 +58,10 @@
         android:label="fragment_show_text"
         tools:layout="@layout/fragment_show_text">
     </fragment>
+    <fragment
+        android:id="@+id/showArticleTextFragment"
+        android:name="com.example.psychoapplication.ui.articles.ShowArticleTextFragment"
+        android:label="fragment_show_article_text"
+        tools:layout="@layout/fragment_show_article_text" />
 
 </navigation>
