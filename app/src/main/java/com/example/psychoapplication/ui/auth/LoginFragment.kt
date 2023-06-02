@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.psychoapplication.R
 import com.example.psychoapplication.databinding.FragmentLoginBinding
 import com.example.psychoapplication.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,12 +59,12 @@ class LoginFragment : Fragment() {
                     binding.loginProgress.show()
                 }
                 is UiState.Failure -> {
-                    binding.loginBtn.text = "Login"
+                    binding.loginBtn.text = getString(R.string.login)
                     binding.loginProgress.hide()
                     toast(state.error)
                 }
                 is UiState.Success -> {
-                    binding.loginBtn.text = "Login"
+                    binding.loginBtn.text = getString(R.string.login)
                     binding.loginProgress.hide()
                     toast(state.data)
                     val action = LoginFragmentDirections.actionLoginFragmentToTabsFragment()

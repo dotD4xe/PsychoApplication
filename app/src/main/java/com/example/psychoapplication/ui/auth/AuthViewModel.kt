@@ -26,11 +26,6 @@ class AuthViewModel @Inject constructor(
     val forgotPassword: LiveData<UiState<String>>
         get() = _forgotPassword
 
-    private val _updateUserInfo = MutableLiveData<UiState<String>>()
-    val updateUserInfo: LiveData<UiState<String>>
-        get() = _updateUserInfo
-
-
     fun register(
         email: String,
         password: String,
@@ -64,22 +59,8 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun updateUserInfo(user: User) {
-        _updateUserInfo.value = UiState.Loading
-        repository.updateUserInfo(user) {
-            _updateUserInfo.value = it
-        }
-    }
-
-    fun logout(result: () -> Unit){
-        repository.logout(result)
-    }
-
     fun getSession(result: (User?) -> Unit){
         repository.getSession(result)
     }
 
-    fun updateSession(user: User, result: (User?) -> Unit) {
-        repository.updateSession(user, result)
-    }
 }
